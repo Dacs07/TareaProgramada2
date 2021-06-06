@@ -16,7 +16,7 @@ public class Prueba
     public Prueba()
     {
         // initialise instance variables
-        y = 0;
+        y = 2;
     }
 
     /**
