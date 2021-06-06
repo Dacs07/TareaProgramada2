@@ -8,7 +8,7 @@
 public class Prueba
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private int y;
 
     /**
      * Constructor for objects of class Prueba
@@ -16,7 +16,7 @@ public class Prueba
     public Prueba()
     {
         // initialise instance variables
-        x = 0;
+        y = 0;
     }
 
     /**
@@ -25,9 +25,9 @@ public class Prueba
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public int sampleMethod(int y)
+    public int sampleMethod(int w)
     {
         // put your code here
-        return x + y;
+        return y + w;
     }
 }
