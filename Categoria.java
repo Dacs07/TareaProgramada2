@@ -25,24 +25,46 @@ public class Categoria
         actividades = new ArrayList<Actividad>();
     }
 
+    public int demeID()
+    {
+        return id;
+    }
+
+    public String demeNombre()
+    {
+        return nombre;
+    }
+
+    public String demeDescripcion()
+    {
+        return descripcion;
+    }
+
+    public String demeTodo()
+    {
+        return id+" "+nombre+" "+descripcion;
+    }
+
     public void crearActividad ()
     {
         Scanner entr= new Scanner(System.in);
-        System.out.println("Agregue los detalles de la actividad. ID-Avance-Nombre-Tiempo-Dinero-Esfuerzo-Inicio-Fin-Responsable");
+        entr.useDelimiter("\n");
+        System.out.println("Agregue los detalles de la actividad. ID-Avance-Nombre-Responsable");
         int id = entr.nextInt();
         int avance=entr.nextInt();
         String nombre= entr.next();
-        String tiempo= entr.next();
-        String dinero= entr.next();
-        String esfuerzo= entr.next();
-        String inicio= entr.next();
-        String fin= entr.next();
         String responsable= entr.next();
-        
-        Actividad nuevaActividad = new Actividad(id, avance, nombre, tiempo, dinero, esfuerzo, inicio, fin, responsable);
-        
+
+        Actividad nuevaActividad = new Actividad(id, avance, nombre, responsable);
+
         actividades.add(nuevaActividad);
-        
-        System.out.println(nuevaActividad.demeTodo());
+
+    }
+    
+    public void imprimaActividades ()
+    {
+        for(int i = 0; i < actividades.size(); i++) {
+            System.out.println(actividades.get(i).demeTodo());
+        }
     }
 }

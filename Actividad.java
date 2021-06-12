@@ -21,18 +21,14 @@ public class Actividad
     /**
      * Constructor for objects of class Actividad
      */
-    public Actividad(int identificador, int avan, String nom, String tiemp, String diner, String esf, String ini, String fi, String resp)
+    public Actividad(int identificador, int avan, String nom, String resp)
     {
         // initialise instance variables
         id= identificador;
         avance=avan;
         nombre=nom;
-        tiempo=tiemp;
-        dinero=diner;
-        esfuerzo=esf;
-        inicio=ini;
-        fin=fi;
         responsable=resp;
+        
     }
 
     /**

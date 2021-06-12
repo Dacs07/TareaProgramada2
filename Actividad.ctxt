@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Actividad
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Actividad\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=identificador\ avan\ nom\ tiemp\ diner\ esf\ ini\ fi\ resp
-comment1.target=Actividad(int,\ int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=identificador\ avan\ nom\ resp
+comment1.target=Actividad(int,\ int,\ java.lang.String,\ java.lang.String)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Actividad\r\n
 comment10.params=
 comment10.target=java.lang.String\ demeDinero()
