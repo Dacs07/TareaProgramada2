@@ -102,7 +102,7 @@ public class Actividad
         return inicio;
     }
 
-    public void cambieIncio(String nuevoInicio)
+    public void cambieInicio(String nuevoInicio)
     {
         inicio = nuevoInicio;
     }

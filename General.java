@@ -45,14 +45,55 @@ public class General
         System.out.println(categorias.get(cate).demeTodo());
     }
 
-    public void eligeCategoria(int cate)
+    public void imprimaActivCateEspecifica(int cate)
+    {
+        categorias.get(cate).imprimaActividades();
+    }
+
+    public void eligeCategoriaCrear(int cate)
     {
         categorias.get(cate).crearActividad();
     }
-
-    public void muestreActdeCat(int cat)
+    
+     public void eligeCategoria(int cate, int actividad)
     {
-        categorias.get(cat).imprimaActividades();
+        categorias.get(cate).modifiqueActividades(actividad);
+    }
+
+    public void muestreActdeCat(int cate)
+    {
+        categorias.get(cate).imprimaActividades();
+    }
+
+    public void eligeCategoriaModificar(int cate)
+    {
+        Scanner entr= new Scanner(System.in);
+        entr.useDelimiter("\n");
+        int opcion;
+        do{
+            System.out.println("¿Qué desea cambiar de esta categoría? (1 para ID, 2 para Nombre, 3 para Desccripcion, 4 para continuar)");
+            opcion=entr.nextInt();
+
+            switch(opcion){
+                case 1:
+                System.out.println("Ingrese nuevo ID");
+                int nuevoID=entr.nextInt();
+                categorias.get(cate).cambieID(nuevoID);
+                break;
+
+                case 2: 
+                System.out.println("Ingrese nuevo Nombre");
+                String nuevoNombre=entr.next();
+                categorias.get(cate).cambieNombre(nuevoNombre);
+                break;
+
+                case 3:
+                System.out.println("Ingrese nueva Descripción");
+                String nuevaDescripcion=entr.next();
+                categorias.get(cate).cambieDescripcion(nuevaDescripcion);
+                break;
+            }
+        }while(opcion!=4);
     }
 
 }
