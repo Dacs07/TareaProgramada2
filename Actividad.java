@@ -28,7 +28,7 @@ public class Actividad
         avance=avan;
         nombre=nom;
         responsable=resp;
-        
+
     }
 
     /**
@@ -134,7 +134,14 @@ public class Actividad
 
     public String demeTodo()
     {
-        return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+tiempo+" "+dinero+" "+esfuerzo+ " Grado de avance: "+avance+"\n"+"Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+        if(avance==1){
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: Sin comenzar"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+        } 
+        if (avance==2){
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: En proceso"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+        } else {
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: Finalizado"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+        }
     }
 }
 
