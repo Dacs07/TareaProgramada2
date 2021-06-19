@@ -1,4 +1,4 @@
-
+import java.util.*;
 /**
  * Write a description of class Actividad here.
  * 
@@ -17,6 +17,8 @@ public class Actividad
     private String inicio;
     private String fin;
     private String responsable;
+    private String recurso;
+    private ArrayList<Integer> asociadas;
 
     /**
      * Constructor for objects of class Actividad
@@ -28,7 +30,7 @@ public class Actividad
         avance=avan;
         nombre=nom;
         responsable=resp;
-
+        asociadas = new ArrayList<Integer>();
     }
 
     /**
@@ -37,6 +39,16 @@ public class Actividad
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
+    public ArrayList<Integer> demeAsociadas()
+    {
+        return asociadas; 
+    }
+
+    public void agregueAsociadas(int ind)
+    {
+        asociadas.add(ind);
+    }
+
     public String demeNombre()
     {
         return nombre;
@@ -132,15 +144,30 @@ public class Actividad
         responsable= responsable+", "+nuevoColaborador;
     }
 
+    public String demeRecurso()
+    {
+        return recurso;
+    }
+
+    public void cambieRecurso(String nuevoRecurso)
+    {
+        recurso = nuevoRecurso;
+    }
+
+    public void agregueRecurso(String nuevoRecurso)
+    {
+        recurso= recurso+", "+nuevoRecurso;
+    }
+
     public String demeTodo()
     {
         if(avance==1){
-            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: Sin comenzar"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ " Recursos asignados: "+recurso+"\n" +"Grado de avance: Sin comenzar"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
         } 
         if (avance==2){
-            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: En proceso"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ " Recursos asignados: "+recurso+"\n" +"Grado de avance: En proceso"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
         } else {
-            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ "\n" +"Grado de avance: Finalizado"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
+            return "ID: "+id+" Nombre actividad: "+nombre+" Responsable(s): "+responsable+"\n"+"Estimación: "+"Tiempo: "+tiempo+" Dinero: "+dinero+" Esfuerzo: "+esfuerzo+ " Recursos asignados: "+recurso+"\n" +"Grado de avance: Finalizado"+" Fecha de inicio: "+inicio+" Fecha de finalización: "+fin;
         }
     }
 }

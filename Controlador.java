@@ -40,7 +40,7 @@ public class Controlador
                         System.out.println("Seleccione la categoría a la que quiere agregar actividades");
                         int cate = entr.nextInt();
                         g.eligeCategoriaCrear(cate-1);
-                        g.imprimaCateEspecifica(cate-1);
+                        
                         g.muestreActdeCat(cate-1);
                         break;
 

@@ -90,15 +90,16 @@ public class Categoria
         nuevaActividad.cambieEsfuerzo("______");
         nuevaActividad.cambieInicio("______");
         nuevaActividad.cambieFin("______");
+        nuevaActividad.cambieRecurso("______");
 
         System.out.println("¿Desea agregar algunos de los siguientes datos a su actividad? (1-Sí , 2-No)");
-        System.out.println("Estimación (Tiempo, Dinero o Esfuerzo) --- Fecha de inicio --- Fecha de finalización");
+        System.out.println("Estimación (Tiempo, Dinero o Esfuerzo) --- Fecha de inicio --- Fecha de finalización --- Recursos");
         int si = entr.nextInt();
 
         if(si == 1){
             int extra;
             do{
-                System.out.println("1-Estimación (Tiempo, Dinero o Esfuerzo) --- 2-Fecha de inicio --- 3-Fecha de finalización --- 4-Para continuar");
+                System.out.println("1-Estimación (Tiempo, Dinero o Esfuerzo) --- 2-Fecha de inicio --- 3-Fecha de finalización --- 4-Recursos --- 5-Para continuar");
                 extra = entr.nextInt();
                 switch(extra){
                     case 1:
@@ -140,9 +141,38 @@ public class Categoria
                     String nuevoFin = entr.next();
                     nuevaActividad.cambieFin(nuevoFin);
                     break;
+
+                    case 4:
+                    System.out.println("Ingrese los Recursos a asignar");
+                    String nuevoRecurso = entr.next();
+                    nuevaActividad.cambieRecurso(nuevoRecurso);
+                    break;
                 }
-            }while(extra != 4);
+            }while(extra != 5);
         }
+
+        System.out.println("¿La actividad creada está asociada a alguna existente? (1-Sí ,  2-No)");
+        int siono = entr.nextInt();
+        if (siono == 1){
+            System.out.println("Lista de actividades de la categoría "+nombre+": ");
+            for(int i = 0; i < actividades.size(); i++) {
+                System.out.println(actividades.get(i).demeTodo());
+            }
+
+            int asocia;
+            do{
+                System.out.println ("Seleccione a cuál actividad está asociada. Si no desea asociarla a más actividades, digite 0");
+                asocia=entr.nextInt();
+                if(asocia !=0){
+                    nuevaActividad.agregueAsociadas(asocia -1);
+                }
+
+            }while(asocia!=0);
+        }else{
+
+            nuevaActividad.agregueAsociadas(5);
+        }
+
         actividades.add(nuevaActividad);
     }
 
@@ -152,7 +182,7 @@ public class Categoria
         entr.useDelimiter("\n");
         int opcion;
         do{
-            System.out.println("¿Qué desea cambiar de esta actividad? \n 1 para ID, 2 para Nombre, 3 para Avance, 4 para Responsable, 5 para Tiempo, 6 para Dinero, 7 para Esfuerzo, 8 para Fecha de inicio, 9 para Fecha de finalización, 10 para continuar");
+            System.out.println("¿Qué desea cambiar de esta actividad? \n 1 para ID, 2 para Nombre, 3 para Avance, 4 para Responsable, 5 para Tiempo, 6 para Dinero, 7 para Esfuerzo, 8 para Fecha de inicio, 9 para Fecha de finalización, 10 para Recursos, 11 para continuar");
             opcion=entr.nextInt();
 
             switch(opcion){
@@ -169,15 +199,60 @@ public class Categoria
                 break;
 
                 case 3:
-                System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
-                int nuevoAvance=entr.nextInt();
-                actividades.get(actividad).cambieAvance(nuevoAvance);
+
+                if (actividades.get(actividad).demeAsociadas().get(0)==5){
+                    System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
+                    int nuevoAvance=entr.nextInt();
+                    actividades.get(actividad).cambieAvance(nuevoAvance);
+                }else{
+                    int contador=0;
+                    for (int i=0; i< actividades.get(actividad).demeAsociadas().size() ; i++){
+                        int indice= actividades.get(actividad).demeAsociadas().get(i);
+
+                        if (actividades.get(indice).demeAvance() == 3){
+                            contador+=contador;
+                        }else{
+                            contador=contador;
+                        }
+                        
+                    }
+
+                    if (contador==actividades.get(actividad).demeAsociadas().size()){
+                        System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
+                        int nuevoAvance=entr.nextInt();
+                        actividades.get(actividad).cambieAvance(nuevoAvance);
+                    }else{
+                        System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
+                        int nuevoAvance=entr.nextInt();
+                        switch(nuevoAvance){
+                            case 1:
+                            actividades.get(actividad).cambieAvance(nuevoAvance);
+                            break;
+
+                            case 2:
+                            actividades.get(actividad).cambieAvance(nuevoAvance);
+                            break;
+
+                            case 3:
+                            System.out.println("Tiene actividades asociadas sin terminar, no puede cambiar al grado 3 de avance");
+                            break;
+                        }
+                    }
+                }
                 break;
 
                 case 4:
-                System.out.println("Ingrese nuevo(s) Responsable(s)");
-                String nuevoResponsable=entr.next();
-                actividades.get(actividad).cambieResponsable(nuevoResponsable);
+                System.out.println("Desea agregar colaboradores (1) o cambiar los existentes (2)");
+                int esc= entr.nextInt();
+                if(esc==2){
+                    System.out.println("Ingrese nuevo(s) Responsable(s)");
+                    String nuevoResponsable=entr.next();
+                    actividades.get(actividad).cambieResponsable(nuevoResponsable);
+                }else{
+                    System.out.println("Ingrese nuevo(s) Colaboradore(s)");
+                    String nuevoColaborador=entr.next();
+                    actividades.get(actividad).agregueResponsable(nuevoColaborador);
+                }
                 break;
 
                 case 5:
@@ -210,8 +285,22 @@ public class Categoria
                 actividades.get(actividad).cambieFin(nuevoFin);
                 break;
 
+                case 10:
+                System.out.println("Desea agregar recursos adicionales (1) o cambiar los existentes (2)");
+                int eli= entr.nextInt();
+                if(eli==2){
+                    System.out.println("Ingrese nuevos Recursos");
+                    String nuevoRecurso=entr.next();
+                    actividades.get(actividad).cambieRecurso(nuevoRecurso);
+                }else{
+                    System.out.println("Ingrese los Recursos adicionales");
+                    String adicionalRecurso=entr.next();
+                    actividades.get(actividad).agregueRecurso(adicionalRecurso);
+                }
+                break;
+
             }
-        }while(opcion!=10);
+        }while(opcion!=11);
 
     }
 
@@ -221,7 +310,7 @@ public class Categoria
         entr.useDelimiter("\n");
         int opcion;
         do{
-            System.out.println("¿Qué desea eliminar de esta actividad? \n 1 para Responsable, 2 para Tiempo, 3 para Dinero, 4 para Esfuerzo, 5 para Fecha de inicio, 6 para Fecha de finalización, 7 para continuar");
+            System.out.println("¿Qué desea eliminar de esta actividad? \n 1 para Responsable, 2 para Tiempo, 3 para Dinero, 4 para Esfuerzo, 5 para Fecha de inicio, 6 para Fecha de finalización, 7 para Recursos , 8 para continuar");
             opcion=entr.nextInt();
 
             switch(opcion){
@@ -255,8 +344,13 @@ public class Categoria
                 actividades.get(actividad).cambieFin(nuevoFin);
                 break;
 
+                case 7:
+                String nuevoRecurso="______";
+                actividades.get(actividad).cambieRecurso(nuevoRecurso);
+                break;
+
             }
-        }while(opcion!=7);
+        }while(opcion!=8);
 
     }
 
@@ -278,12 +372,12 @@ public class Categoria
             }
         }
     }
-    
+
     public void compareResponsable(String responsablebusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String responsabletmp= actividades.get(i).demeResponsable();
-            
+
             if (responsabletmp.equalsIgnoreCase(responsablebusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
@@ -300,56 +394,56 @@ public class Categoria
             }
         }
     }
-    
+
     public void compareTiempo(String tiempobusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String tiempotmp= actividades.get(i).demeTiempo();
-            
+
             if (tiempotmp.equalsIgnoreCase(tiempobusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
         }
     }
-    
+
     public void compareDinero(String dinerobusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String dinerotmp= actividades.get(i).demeDinero();
-            
+
             if (dinerotmp.equalsIgnoreCase(dinerobusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
         }
     }
-    
+
     public void compareEsfuerzo(String esfuerzobusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String esfuerzotmp= actividades.get(i).demeEsfuerzo();
-            
+
             if (esfuerzotmp.equalsIgnoreCase(esfuerzobusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
         }
     }
-    
+
     public void compareInicio(String iniciobusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String iniciotmp= actividades.get(i).demeInicio();
-            
+
             if (iniciotmp.equalsIgnoreCase(iniciobusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
         }
     }
-    
+
     public void compareFin(String finbusq)
     {
         for(int i=0; i<actividades.size(); i++){
             String fintmp= actividades.get(i).demeFin();
-            
+
             if (fintmp.equalsIgnoreCase(finbusq)){
                 System.out.println(actividades.get(i).demeTodo());
             }
