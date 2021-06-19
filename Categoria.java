@@ -1,20 +1,21 @@
 import java.util.*;
+
 /**
- * Write a description of class Prueba here.
+ * Esta clase define los atributos de las categorías y maneja el IMEC de las actividades. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author David Córdoba Segura C02390  ---  Yasmyn Chacón Hernández B41761 
+ * @version 19/06/2021
  */
 public class Categoria
 {
-    // instance variables - replace the example below with your own
+    
     private int id;
     private String nombre;
     private String descripcion;
     private ArrayList<Actividad> actividades;
-
+    
     /**
-     * Constructor for objects of class Prueba
+     * Constructor de la clase Categoría, inicializa todos los atributos de las categorías
      */
     public Categoria(int identi, String nom, String desc)
     {
@@ -62,17 +63,29 @@ public class Categoria
     {
         return id+" "+nombre+" "+descripcion;
     }
+    
+    /**
+     * Elimina de la categoría una actividad seleccionada por el usuario.
+     * 
+     * 
+     */
 
-    public void removerActividad()
+    public void removerActividad() 
     {
         Scanner entr= new Scanner(System.in);
         entr.useDelimiter("\n");
         System.out.println("Ingrese la actividad a eliminar");
         int ind= entr.nextInt();
 
-        actividades.remove(ind -1);
+        actividades.remove(ind -1);  //(ind-1) es porque el usuario empieza su conteo en 1, miestras que el ArrayList lo empieza en 0
 
     }
+    
+    /**
+     * Crea una actividad dentro de la categoría. Permite agregar datos adicionales sobre la actividad.
+     * Permite la asociación de actividades. 
+     * 
+     */
 
     public void crearActividad ()
     {
@@ -153,13 +166,17 @@ public class Categoria
 
         System.out.println("¿La actividad creada está asociada a alguna existente? (1-Sí ,  2-No)");
         int siono = entr.nextInt();
-        if (siono == 1){
+        //Ingresa solo sí el usuario decide asociarlo a una actividad ya creada
+        if (siono == 1){ 
             System.out.println("Lista de actividades de la categoría "+nombre+": ");
+            //Muestra todas las actividades creadas previamente
             for(int i = 0; i < actividades.size(); i++) {
                 System.out.println(actividades.get(i).demeTodo());
             }
 
-            int asocia;
+            int asocia; //Posición de la actividad a la que se desea asociar
+            
+            //Permite asociar la actividad a más de una
             do{
                 System.out.println ("Seleccione a cuál actividad está asociada. Si no desea asociarla a más actividades, digite 0");
                 asocia=entr.nextInt();
@@ -170,11 +187,19 @@ public class Categoria
             }while(asocia!=0);
         }else{
 
-            nuevaActividad.agregueAsociadas(5);
+            nuevaActividad.agregueAsociadas(-1); //Si no desea asociar, se le agrega un valor bandera
         }
 
         actividades.add(nuevaActividad);
     }
+    
+    /**
+     * Permite seleccionar y modificar atributos de actividades específicas mediante el uso de un menú.
+     * Verifica del grado de avance de las actividades asociadas, para determinar si se puede o no cambiar el grado de avance.
+     * 
+     * @param actividad   La posición de la actividad a modificar dentro del ArrayList 
+     * 
+     */
 
     public void modifiqueActividades(int actividad)
     {
@@ -198,15 +223,15 @@ public class Categoria
                 actividades.get(actividad).cambieNombre(nuevoNombre);
                 break;
 
-                case 3:
+                case 3: 
 
-                if (actividades.get(actividad).demeAsociadas().get(0)==5){
+                if (actividades.get(actividad).demeAsociadas().get(0)==-1){ // Ingresa si no tiene actividades asociadas y permite la modificación del grado de avance
                     System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
                     int nuevoAvance=entr.nextInt();
                     actividades.get(actividad).cambieAvance(nuevoAvance);
-                }else{
+                }else{  // Ingresa si tiene actividades asociadas
                     int contador=0;
-                    for (int i=0; i< actividades.get(actividad).demeAsociadas().size() ; i++){
+                    for (int i=0; i< actividades.get(actividad).demeAsociadas().size() ; i++){ //Verifica el avance de las actividades asociadas
                         int indice= actividades.get(actividad).demeAsociadas().get(i);
 
                         if (actividades.get(indice).demeAvance() == 3){
@@ -214,10 +239,10 @@ public class Categoria
                         }else{
                             contador=contador;
                         }
-                        
+
                     }
 
-                    if (contador==actividades.get(actividad).demeAsociadas().size()){
+                    if (contador==actividades.get(actividad).demeAsociadas().size()){ //Si todas las actividades asociadas han sido terminadas permite el cambio de avance
                         System.out.println("Ingrese nuevo Grado de Avance (1-Sin comenzar, 2-En proceso, 3-Finalizado)");
                         int nuevoAvance=entr.nextInt();
                         actividades.get(actividad).cambieAvance(nuevoAvance);
@@ -233,7 +258,7 @@ public class Categoria
                             actividades.get(actividad).cambieAvance(nuevoAvance);
                             break;
 
-                            case 3:
+                            case 3: // Bloquea si alguna de las actividades asociadas no ha sido finalizada
                             System.out.println("Tiene actividades asociadas sin terminar, no puede cambiar al grado 3 de avance");
                             break;
                         }
@@ -304,6 +329,13 @@ public class Categoria
 
     }
 
+    /**
+     * Elimina el contenido del atributo definido por el usuario, exceptuando a los atributos indispensables (ID, nombre y avance)
+     * 
+     * @param actividad   La posición de la actividad dentro del ArrayList a la cual se eliminan los contenidos de los atributos 
+     * 
+     */
+    
     public void elimineAtributos(int actividad)
     {
         Scanner entr= new Scanner(System.in);
@@ -354,14 +386,39 @@ public class Categoria
 
     }
 
-    public void imprimaActividades ()
+    public void imprimaActividades ()  //Imprime las actividades de la categoría
     {
         System.out.println("Lista de actividades de la categoría "+nombre+": ");
         for(int i = 0; i < actividades.size(); i++) {
             System.out.println(actividades.get(i).demeTodo());
         }
     }
-
+    
+     /**
+     * Retorna las actividades dentro la categoría para su almacenamiento posterior
+     * 
+     * @return activguardar   El String que contiene todas las actividades (con sus atributos) definidos dentro de la categoría. 
+     * 
+     */
+    
+    public String guardeActividades ()  
+    {
+        String activguardar = "";
+        activguardar+="\n Lista de actividades de la categoría: "+id+" "+nombre +" "+descripcion ;
+        for(int i = 0; i < actividades.size(); i++) {
+            activguardar+= "\n"+actividades.get(i).demeTodo();
+        }
+        return activguardar;
+    }
+    
+     /**
+     * Todos los métodos compare(Atributo) relizan una búsqueda dentro de las actividades existentes de la categoría. 
+     * Compara el contenido del atributo, recuperando aquellos con el mismo contenido.  
+     * 
+     * @param (atributo)busq   El contenido a comparar
+     * 
+     */
+    
     public void compareNombre(String nombrebusq)
     {
         for(int i=0; i<actividades.size(); i++){

@@ -3,21 +3,21 @@ import java.util.*;
  * Write a description of class Controlador here.
  * 
  * @author David Córdoba Segura C02390  ---  Yasmyn Chacón Hernández B41761 
- * @version (a version number or a date)
+ * @version 19/06/2021
  */
 public class Controlador
 {
 
     public static void main (String a[])
     {
-        General g =new General();
         Scanner entr= new Scanner(System.in);
         entr.useDelimiter("\n");
 
-        int grande;
+        General g =new General();
 
+        int grande;
         do{
-            System.out.println("Presione 1 para agregar, 2 para modificar, 3 para eliminar, 4 para mostrar, 5 para salir");
+            System.out.println("Presione 1 para agregar, 2 para modificar, 3 para eliminar, 4 para mostrar, 5 para guadar, 6 para salir");
             grande=entr.nextInt();
 
             switch(grande){
@@ -40,7 +40,7 @@ public class Controlador
                         System.out.println("Seleccione la categoría a la que quiere agregar actividades");
                         int cate = entr.nextInt();
                         g.eligeCategoriaCrear(cate-1);
-                        
+
                         g.muestreActdeCat(cate-1);
                         break;
 
@@ -171,7 +171,7 @@ public class Controlador
                             String iniciobusq= entr.next();
                             g.eligeCategoriaFiltrarInicio(categoria-1, iniciobusq);
                             break;
-                            
+
                             case 8:
                             System.out.println("Ingrese la fecha de finalización a buscar");
                             String finbusq= entr.next();
@@ -185,7 +185,17 @@ public class Controlador
 
                 }while(opcion4!=3);
                 break;
+
+                case 5: 
+                System.out.println("Ingrese el nombre del archivo donde desee guardar las actividades"); 
+                String nombre = entr.next(); //Recibe el nombre del archivo en donde se desea guardar la información
+                nombre+=".txt"; //Lo concardena a .txt para definir el formato a guardar. 
+                g.genereArchivo(nombre);  //Crea (o selecciona) el archivo donde se guarda la información
+                String dato= g.guardeTodasActiv();
+                g.grabarDato(dato); // Guarda todos los atributos de actividades y categorías
+                g.cerrarArchivo();
+                break;
             }
-        }while(grande != 5);
+        }while(grande != 6);
     }
 }
